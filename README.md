@@ -8,3 +8,4 @@
 
 `bash -c "$(curl -sS https://raw.githubusercontent.com/BrownRhined/AliYunServicesClear/master/quartz_uninstall.sh)"`
 
+`bash -c "$(curl -sS https://raw.githubusercontent.com/BrownRhined/AliYunServicesClear/master/aliyunDUN_uninstall.sh)"`
