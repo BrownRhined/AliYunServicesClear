@@ -11,8 +11,39 @@ if [ -d "/etc/runlevels/default" -a -n "${var}" ]; then
 else
 	LINUX_RELEASE="OTHER"
 fi
+function Colorset() {
+  #顏色配置
+  echo=echo
+  for cmd in echo /bin/echo; do
+    $cmd >/dev/null 2>&1 || continue
+    if ! $cmd -e "" | grep -qE '^-e'; then
+      echo=$cmd
+      break
+    fi
+  done
+  CSI=$($echo -e "\033[")
+  CEND="${CSI}0m"
+  CDGREEN="${CSI}32m"
+  CRED="${CSI}1;31m"
+  CGREEN="${CSI}1;32m"
+  CYELLOW="${CSI}1;33m"
+  CBLUE="${CSI}1;34m"
+  CMAGENTA="${CSI}1;35m"
+  CCYAN="${CSI}1;36m"
+  CSUCCESS="$CDGREEN"
+  CFAILURE="$CRED"
+  CQUESTION="$CMAGENTA"
+  CWARNING="$CYELLOW"
+  CMSG="$CCYAN"
+}
+
+function Logprefix() {
+  #輸出log
+  echo -n ${CGREEN}'1mix >> '
+}
 
 stop_aegis(){
+	Logprefix;echo ${CYELLOW}'[INFO]kill all AliYun backdrop service!'${CEND}
 	killall -9 aegis_cli >/dev/null 2>&1
 	killall -9 aegis_update >/dev/null 2>&1
 	killall -9 aegis_cli >/dev/null 2>&1
@@ -20,24 +51,51 @@ stop_aegis(){
 	killall -9 AliHids >/dev/null 2>&1
 	killall -9 AliHips >/dev/null 2>&1
 	killall -9 AliYunDunUpdate >/dev/null 2>&1
-    printf "%-40s %40s\n" "Stopping aegis" "[  OK  ]"
+	service cloudmonitor stop
+	service aegis stop
+	service agentwatch stop
+	Logprefix;echo ${CMSG}'[SUCCESS]Stopping && Kill success!'${CEND}
 }
 stop_quartz(){
+	Logprefix;echo ${CYELLOW}'[INFO]Stopping AliYun quartz!'${CEND}
 	killall -9 aegis_quartz >/dev/null 2>&1
-        printf "%-40s %40s\n" "Stopping quartz" "[  OK  ]"
+    Logprefix;echo ${CMSG}'[SUCCESS]Stopping AliYun quartz success!'${CEND}
+}
+remove_cloudmonitor(){
+	Logprefix;echo ${CYELLOW}'[INFO]Uninstall AliYun cloudmonitor!'${CEND}
+	rm -rf /usr/sbin/aliyun*
+	rm -rf /usr/local/share/aliyun-assist/
+	rm -rf /usr/local/cloudmonitor
+	systemctl stop aliyun.service
+	rm -rf /etc/systemd/system/aliyun.service
+	systemctl daemon-reload
+	rm -rf /etc/init.d/agentwatch
+	rm -rf /etc/init.d/aegis
+	rm -rf /etc/init.d/cloudmonitor
+	rm -rf /etc/rc.d/rc0.d/K01agentwatch
+	rm -rf /etc/rc.d/rc0.d/K80cloudmonitor
+	rm -rf /etc/rc.d/rc1.d/K01agentwatch
+	rm -rf /etc/rc.d/rc1.d/K80cloudmonitor
+	rm -rf /etc/rc.d/rc6.d/K01agentwatch
+	rm -rf /etc/rc.d/rc6.d/K80cloudmonitor
+	Logprefix;echo ${CMSG}'[SUCCESS]Uninstall AliYun cloudmonitor success!'${CEND}
+}
+
+remove_quartz(){
+Logprefix;echo ${CYELLOW}'[INFO]Uninstall AliYun quartz!'${CEND}
+if [ -d /usr/local/aegis ];then
+	rm -rf /usr/local/aegis/aegis_quartz
+fi
+Logprefix;echo ${CMSG}'[SUCCESS]Uninstall AliYun quartz success!'${CEND}
 }
 
 remove_aegis(){
+Logprefix;echo ${CYELLOW}'[INFO]Uninstall AliYun aegis!'${CEND}
 if [ -d /usr/local/aegis ];then
     rm -rf /usr/local/aegis/aegis_client
     rm -rf /usr/local/aegis/aegis_update
 	rm -rf /usr/local/aegis/alihids
-fi
-}
 
-remove_quartz(){
-if [ -d /usr/local/aegis ];then
-	rm -rf /usr/local/aegis/aegis_quartz
 fi
 }
 
@@ -57,25 +115,25 @@ uninstall_service() {
          /etc/init.d/aegis  uninstall
 	    for ((var=2; var<=5; var++)) do
 			if [ -d "/etc/rc${var}.d/" ];then
-				 rm -f "/etc/rc${var}.d/S80aegis"
+				 rm -rf "/etc/rc${var}.d/S20cloudmonitor"
+				 rm -rf "/etc/rc${var}.d/S50aegis"
+				 rm -rf "/etc/rc${var}.d/S80aegis"
+				 rm -rf "/etc/rc${var}.d/S98agentwatch"
 		    elif [ -d "/etc/rc.d/rc${var}.d" ];then
 				rm -f "/etc/rc.d/rc${var}.d/S80aegis"
 			fi
 		done
     fi
-
+Logprefix;echo ${CMSG}'[SUCCESS]Uninstall AliYun aegis success!'${CEND}
 }
 
+Colorset
 stop_aegis
 stop_quartz
-uninstall_service
-remove_aegis
+remove_cloudmonitor
 remove_quartz
+remove_aegis
+uninstall_service
 umount /usr/local/aegis/aegis_debug
 
-
-printf "%-40s %40s\n" "Uninstalling aegis"  "[  OK  ]"
-printf "%-40s %40s\n" "Uninstalling aegis_quartz"  "[  OK  ]"
-
-
-
+Logprefix;echo ${CYELLOW}'[INFO]Uninstall success.Please reboot.'${CEND}
