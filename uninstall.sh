@@ -39,11 +39,11 @@ function Colorset() {
 
 function Logprefix() {
   #輸出log
-  echo -n ${CGREEN}'1mix >> '
+  echo -n ${CGREEN}'WitMantoBot >> '
 }
 
 stop_aegis(){
-	Logprefix;echo ${CYELLOW}'[INFO]kill all AliYun backdrop service!'${CEND}
+	Logprefix;echo ${CYELLOW}'[INFO] kill all AliYun backdrop service!'${CEND}
 	killall -9 aegis_cli >/dev/null 2>&1
 	killall -9 aegis_update >/dev/null 2>&1
 	killall -9 aegis_cli >/dev/null 2>&1
@@ -54,15 +54,27 @@ stop_aegis(){
 	service cloudmonitor stop
 	service aegis stop
 	service agentwatch stop
-	Logprefix;echo ${CMSG}'[SUCCESS]Stopping && Kill success!'${CEND}
+	Logprefix;echo ${CMSG}'[SUCCESS] Stop && Kill success!'${CEND}
+	Logprefix;echo ${CDGREEN}'CDGREEN'${CEND}
+Logprefix;echo ${CRED}'CRED'${CEND}
+Logprefix;echo ${CGREEN}'CGREEN'${CEND}
+Logprefix;echo ${CYELLOW}'CYELLOW'${CEND}
+Logprefix;echo ${CBLUE}'CBLUE'${CEND}
+Logprefix;echo ${CMAGENTA}'CMAGENTA'${CEND}
+Logprefix;echo ${CCYAN}'CCYAN'${CEND}
+Logprefix;echo ${CSUCCESS}'CSUCCESS'${CEND}
+Logprefix;echo ${CFAILURE}'CFAILURE'${CEND}
+Logprefix;echo ${CQUESTION}'CQUESTION'${CEND}
+Logprefix;echo ${CWARNING}'CWARNING'${CEND}
+Logprefix;echo ${CMSG}'CMSG'${CEND}
 }
 stop_quartz(){
-	Logprefix;echo ${CYELLOW}'[INFO]Stopping AliYun quartz!'${CEND}
+	Logprefix;echo ${CYELLOW}'[INFO] Stopping AliYun quartz!'${CEND}
 	killall -9 aegis_quartz >/dev/null 2>&1
-    Logprefix;echo ${CMSG}'[SUCCESS]Stopping AliYun quartz success!'${CEND}
+    Logprefix;echo ${CMSG}'[SUCCESS] Stop AliYun quartz success!'${CEND}
 }
 remove_cloudmonitor(){
-	Logprefix;echo ${CYELLOW}'[INFO]Uninstall AliYun cloudmonitor!'${CEND}
+	Logprefix;echo ${CYELLOW}'[INFO] Uninstall AliYun cloudmonitor!'${CEND}
 	rm -rf /usr/sbin/aliyun*
 	rm -rf /usr/local/share/aliyun-assist/
 	rm -rf /usr/local/cloudmonitor
@@ -78,19 +90,19 @@ remove_cloudmonitor(){
 	rm -rf /etc/rc.d/rc1.d/K80cloudmonitor
 	rm -rf /etc/rc.d/rc6.d/K01agentwatch
 	rm -rf /etc/rc.d/rc6.d/K80cloudmonitor
-	Logprefix;echo ${CMSG}'[SUCCESS]Uninstall AliYun cloudmonitor success!'${CEND}
+	Logprefix;echo ${CMSG}'[SUCCESS] Uninstall AliYun cloudmonitor success!'${CEND}
 }
 
 remove_quartz(){
-Logprefix;echo ${CYELLOW}'[INFO]Uninstall AliYun quartz!'${CEND}
+Logprefix;echo ${CYELLOW}'[INFO] Uninstall AliYun quartz!'${CEND}
 if [ -d /usr/local/aegis ];then
 	rm -rf /usr/local/aegis/aegis_quartz
 fi
-Logprefix;echo ${CMSG}'[SUCCESS]Uninstall AliYun quartz success!'${CEND}
+Logprefix;echo ${CMSG}'[SUCCESS] Uninstall AliYun quartz success!'${CEND}
 }
 
 remove_aegis(){
-Logprefix;echo ${CYELLOW}'[INFO]Uninstall AliYun aegis!'${CEND}
+Logprefix;echo ${CYELLOW}'[INFO] Uninstall AliYun aegis!'${CEND}
 if [ -d /usr/local/aegis ];then
     rm -rf /usr/local/aegis/aegis_client
     rm -rf /usr/local/aegis/aegis_update
@@ -124,10 +136,10 @@ uninstall_service() {
 			fi
 		done
     fi
-Logprefix;echo ${CMSG}'[SUCCESS]Uninstall AliYun aegis success!'${CEND}
+Logprefix;echo ${CMSG}'[SUCCESS] Uninstall AliYun aegis success!'${CEND}
 }
 aliyun_dun(){
-Logprefix;echo ${CYELLOW}'[INFO]Uninstall AliYun DUN!'${CEND}
+Logprefix;echo ${CYELLOW}'[INFO] Uninstall AliYun DUN!'${CEND}
 sudo pkill aliyun-service
 iptables -I INPUT -s 140.205.201.0/28 -j DROP
 iptables -I INPUT -s 140.205.201.16/29 -j DROP
@@ -145,7 +157,7 @@ iptables -I INPUT -s 140.205.225.0/24 -j DROP
 iptables -I INPUT -s 106.11.222.0/23 -j DROP
 iptables -I INPUT -s 106.11.224.0/24 -j DROP
 iptables -I INPUT -s 106.11.228.0/22 -j DROP
-Logprefix;echo ${CMSG}'[SUCCESS]Uninstall AliYun DUN success!'${CEND}
+Logprefix;echo ${CMSG}'[SUCCESS] Uninstall AliYun DUN success!'${CEND}
 }
 
 Colorset
