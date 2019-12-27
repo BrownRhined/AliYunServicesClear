@@ -22,12 +22,22 @@ stop_aegis(){
 	killall -9 AliYunDunUpdate >/dev/null 2>&1
     printf "%-40s %40s\n" "Stopping aegis" "[  OK  ]"
 }
+stop_quartz(){
+	killall -9 aegis_quartz >/dev/null 2>&1
+        printf "%-40s %40s\n" "Stopping quartz" "[  OK  ]"
+}
 
 remove_aegis(){
 if [ -d /usr/local/aegis ];then
     rm -rf /usr/local/aegis/aegis_client
     rm -rf /usr/local/aegis/aegis_update
 	rm -rf /usr/local/aegis/alihids
+fi
+}
+
+remove_quartz(){
+if [ -d /usr/local/aegis ];then
+	rm -rf /usr/local/aegis/aegis_quartz
 fi
 }
 
@@ -57,12 +67,15 @@ uninstall_service() {
 }
 
 stop_aegis
+stop_quartz
 uninstall_service
 remove_aegis
+remove_quartz
 umount /usr/local/aegis/aegis_debug
 
 
 printf "%-40s %40s\n" "Uninstalling aegis"  "[  OK  ]"
+printf "%-40s %40s\n" "Uninstalling aegis_quartz"  "[  OK  ]"
 
 
 
