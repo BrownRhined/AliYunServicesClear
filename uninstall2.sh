@@ -126,6 +126,27 @@ uninstall_service() {
     fi
 Logprefix;echo ${CMSG}'[SUCCESS]Uninstall AliYun aegis success!'${CEND}
 }
+aliyun_dun(){
+Logprefix;echo ${CYELLOW}'[INFO]Uninstall AliYun DUN!'${CEND}
+sudo pkill aliyun-service
+iptables -I INPUT -s 140.205.201.0/28 -j DROP
+iptables -I INPUT -s 140.205.201.16/29 -j DROP
+iptables -I INPUT -s 140.205.201.32/28 -j DROP
+iptables -I INPUT -s 140.205.225.192/29 -j DROP
+iptables -I INPUT -s 140.205.225.200/30 -j DROP
+iptables -I INPUT -s 140.205.225.184/29 -j DROP
+iptables -I INPUT -s 140.205.225.183/32 -j DROP
+iptables -I INPUT -s 140.205.225.206/32 -j DROP
+iptables -I INPUT -s 140.205.225.205/32 -j DROP
+iptables -I INPUT -s 140.205.225.195/32 -j DROP
+iptables -I INPUT -s 140.205.225.204/32 -j DROP
+iptables -I INPUT -s 140.205.201.0/24 -j DROP
+iptables -I INPUT -s 140.205.225.0/24 -j DROP
+iptables -I INPUT -s 106.11.222.0/23 -j DROP
+iptables -I INPUT -s 106.11.224.0/24 -j DROP
+iptables -I INPUT -s 106.11.228.0/22 -j DROP
+Logprefix;echo ${CMSG}'[SUCCESS]Uninstall AliYun DUN success!'${CEND}
+}
 
 Colorset
 stop_aegis
@@ -134,6 +155,7 @@ remove_cloudmonitor
 remove_quartz
 remove_aegis
 uninstall_service
+aliyun_dun
 umount /usr/local/aegis/aegis_debug
 
 Logprefix;echo ${CYELLOW}'[INFO]Uninstall success.Please reboot.'${CEND}
