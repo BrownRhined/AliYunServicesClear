@@ -55,18 +55,6 @@ stop_aegis(){
 	service aegis stop
 	service agentwatch stop
 	Logprefix;echo ${CMSG}'[SUCCESS] Stop && Kill success!'${CEND}
-	Logprefix;echo ${CDGREEN}'CDGREEN'${CEND}
-Logprefix;echo ${CRED}'CRED'${CEND}
-Logprefix;echo ${CGREEN}'CGREEN'${CEND}
-Logprefix;echo ${CYELLOW}'CYELLOW'${CEND}
-Logprefix;echo ${CBLUE}'CBLUE'${CEND}
-Logprefix;echo ${CMAGENTA}'CMAGENTA'${CEND}
-Logprefix;echo ${CCYAN}'CCYAN'${CEND}
-Logprefix;echo ${CSUCCESS}'CSUCCESS'${CEND}
-Logprefix;echo ${CFAILURE}'CFAILURE'${CEND}
-Logprefix;echo ${CQUESTION}'CQUESTION'${CEND}
-Logprefix;echo ${CWARNING}'CWARNING'${CEND}
-Logprefix;echo ${CMSG}'CMSG'${CEND}
 }
 stop_quartz(){
 	Logprefix;echo ${CYELLOW}'[INFO] Stopping AliYun quartz!'${CEND}
