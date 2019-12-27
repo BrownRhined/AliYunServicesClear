@@ -56,6 +56,7 @@ stop_aegis(){
 	service agentwatch stop
 	Logprefix;echo ${CGREEN}'[SUCCESS]';' Stop && Kill success!'${CEND}
 
+
 }
 stop_quartz(){
 	Logprefix;echo ${CYELLOW}'[INFO] Stopping AliYun quartz!'${CEND}
@@ -159,4 +160,4 @@ uninstall_service
 aliyun_dun
 umount /usr/local/aegis/aegis_debug
 
-Logprefix;echo ${CYELLOW}'[INFO]Uninstall success.Please reboot.'${CEND}
+Logprefix;echo ${CYELLOW}'[INFO] Uninstall success.Please reboot.'${CEND}
