@@ -55,12 +55,12 @@ stop_aegis(){
 	service aegis stop
 	service agentwatch stop
 	Logprefix;echo ${CGREEN}'[SUCCESS]'${CEND}' Stop && Kill success!'
-
 }
 stop_quartz(){
 	Logprefix;echo ${CYELLOW}'[INFO]'${CEND}' Stopping AliYun quartz!'
 	killall -9 aegis_quartz >/dev/null 2>&1
-    Logprefix;echo ${CMSG}'[SUCCESS] Stop AliYun quartz success!'${CEND}
+    Logprefix;echo ${CGREEN}'[SUCCESS]'${CEND}' Stop AliYun quartz success!'
+    
 }
 remove_cloudmonitor(){
 	Logprefix;echo ${CYELLOW}'[INFO] Uninstall AliYun cloudmonitor!'${CEND}
