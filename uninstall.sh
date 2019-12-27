@@ -39,7 +39,7 @@ function Colorset() {
 
 function Logprefix() {
   #輸出log
-  echo -n ${CGREEN}'WitMantoBot >> '
+  echo -n 'WitMantoBot >> '
 }
 
 stop_aegis(){
@@ -54,8 +54,8 @@ stop_aegis(){
 	service cloudmonitor stop
 	service aegis stop
 	service agentwatch stop
-	Logprefix;echo ${CGREEN}'[SUCCESS]'${CMSG}'Stop && Kill success!'${CEND}
-	
+	Logprefix;echo ${CGREEN}'[SUCCESS]';' Stop && Kill success!'${CEND}
+
 }
 stop_quartz(){
 	Logprefix;echo ${CYELLOW}'[INFO] Stopping AliYun quartz!'${CEND}
